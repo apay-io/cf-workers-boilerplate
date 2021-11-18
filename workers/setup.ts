@@ -81,7 +81,10 @@ async function handleRequest(
   }
 
   try {
-    const body = (await request.json()) || {}
+    let body = {};
+    try {
+      body = (await request.json())
+    } catch(err) {}
 
     const { data = null, status = 200, statusText = 'ok', message = 'ok' } =
       (await handler({ body, url, query })) || {}
@@ -110,12 +113,7 @@ function buildResponse({
   let payload
 
   try {
-    payload = JSON.stringify({
-      message,
-      status,
-      statusText,
-      data,
-    })
+    payload = JSON.stringify(data || { message: message })
   } catch {
     payload = `{"message":${message},"status":500}`
   }

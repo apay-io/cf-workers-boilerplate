@@ -11,6 +11,14 @@ module.exports = {
   },
   devtool: 'source-map',
   mode,
+  node: {
+    child_process: 'empty',
+    dns: 'empty',
+    fs: 'empty',
+    crypto: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
     plugins: [],
